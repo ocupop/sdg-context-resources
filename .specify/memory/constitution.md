@@ -1,97 +1,97 @@
 <!--
 Sync Impact Report:
-Version: 0.0.0 → 1.0.0 (Initial creation)
-Modified principles: N/A (new constitution)
-Added sections: Core Principles (6), Design Standards, Development Workflow, Governance
-Removed sections: N/A
-Templates requiring updates:
-  ✅ .specify/templates/plan-template.md - Constitution Check section aligns with principles
-  ✅ .specify/templates/spec-template.md - No changes needed (already references constitution)
-  ✅ .specify/templates/tasks-template.md - No changes needed (task structure aligns)
-  ⚠️ .cursor/commands/*.md - Review for agent-specific references (deferred - internal commands)
-Follow-up TODOs:
-  - TODO(RATIFICATION_DATE): Original ratification date unknown - set when project officially adopted constitution
+Version: 1.0.0 (initial creation)
+Changes:
+- Initial constitution creation from template
+- Derived 5 core principles from project context
+- Added Development Workflow and Quality Standards sections
+- Templates: All templates reviewed and aligned
+  ✅ plan-template.md - Constitution Check section exists
+  ✅ spec-template.md - No changes needed
+  ✅ tasks-template.md - No changes needed
+  ✅ All command files reference constitution correctly
 -->
 
-# SDG Context & Resources Constitution
+# Context Resources Starter Constitution
 
 ## Core Principles
 
-### I. Design Agent System (NON-NEGOTIABLE)
-All design work MUST pass through the Design Agent System before implementation. The workflow command `/design.workflow [feature-name]` must be executed for new features, components, or significant design changes. This ensures strategic alignment, brand compliance, technical validation, and accessibility. Design agents provide autonomous validation and cannot be bypassed. Rationale: Maintains design quality, brand consistency, and ensures all work aligns with SDG platform requirements and Ocupop design principles.
+### I. Content-First Architecture
+Every feature MUST prioritize content structure and accessibility over implementation details. Content collections define the data model; components serve content, not the reverse. CloudCannon CMS integration is non-negotiable for all content types. Content MUST be structured for multiple audiences (public, private, agentic) with clear access boundaries. MDX and Markdown are primary content formats; JSON data files provide configuration and design tokens.
 
-### II. Brand Compliance
-All components, pages, and design decisions MUST align with established brand guidelines and design tokens. Design tokens (colors, typography, spacing) defined in `data/colors.json` and design system documentation MUST be used—no hardcoded values. Brand Guardian agent validates compliance before commits. Rationale: Ensures visual consistency across the SDG supplier assessment platform and maintains brand integrity.
+**Rationale**: This is a documentation and brand playbook site. Content is the product, and the architecture must serve content creators and consumers across different access levels.
 
-### III. Accessibility First (NON-NEGOTIABLE)
-All features MUST meet WCAG 2.1 Level AA minimum standards. Accessibility Champion agent validates compliance before merging. Keyboard navigation, screen reader compatibility, color contrast ratios, and focus indicators are mandatory. Rationale: Inclusive design is fundamental—the platform serves diverse users including CSOs, Sustainability Managers, and small business owners who may have varying accessibility needs.
+### II. Design System Compliance (NON-NEGOTIABLE)
+All design decisions MUST align with Ocupop design principles documented in `docs/design/ocupop-design-principles.md`. Components MUST follow established design tokens (colors, typography, spacing) from `data/` files. Accessibility standards (WCAG AA minimum, AAA preferred) are mandatory for all UI components. Design agent system (Brand Guardian, Creative Director, Art Director, UI Analyzer, Accessibility Champion) MUST be consulted for all visual implementations.
 
-### IV. Persona-Driven Development
-All features MUST consider relevant user personas documented in `src/content/personas/`. Design decisions must reference persona goals, pain points, technology profiles, and accessibility needs. The seven active personas (CSO, Sustainability Manager, Procurement Manager, Small Business Owner, System Administrator, Scoring Insight Agent, Sales Operations Manager) represent real users of the supplier assessment platform. Rationale: Ensures features serve actual user needs and maintain alignment with platform goals.
+**Rationale**: Brand consistency and accessibility are core to Ocupop's design philosophy. The design system ensures quality and maintains brand integrity across all deliverables.
 
-### V. Living Documentation
-Documentation MUST be kept current and accessible. Personas, design tokens, brand guidelines, and component documentation are living resources that evolve with the platform. All changes to design system, personas, or brand guidelines must be reflected in documentation immediately. CloudCannon CMS enables non-technical team members to maintain content. Rationale: This site serves as the single source of truth for platform context—outdated documentation breaks trust and hinders development.
+### III. Component Reusability & Bookshop Integration
+All UI components MUST be created as Bookshop components with corresponding `.yml` schema files for CloudCannon editing. Components MUST be self-contained, independently testable, and documented. Component schemas MUST define all editable properties, default values, and validation rules. Shared components live in `src/components/`; component-specific assets co-located with component files.
 
-### VI. Design System Consistency
-All UI components MUST use design tokens from the established system. Colors from `data/colors.json`, typography from `src/styles/main.css`, spacing from Tailwind configuration. Custom components must follow Bookshop schema patterns and be validated through Brand Guardian. Rationale: Maintains visual harmony, enables efficient development, and ensures components work together as a cohesive system.
+**Rationale**: Bookshop enables visual editing in CloudCannon while maintaining code quality. Reusable components reduce duplication and ensure consistency across the site.
 
-## Design Standards
+### IV. Multi-Audience Content Strategy
+Content MUST be structured to serve three distinct audiences: public (external stakeholders), private (internal/client teams), and agentic (AI agents and automated systems). Access control and content organization MUST reflect these audience boundaries. Agentic content MUST include structured metadata, clear schemas, and machine-readable formats. Public content MUST be optimized for human readability and SEO.
 
-All design work must align with Ocupop Design Principles documented in `docs/design/ocupop-design-principles.md`:
+**Rationale**: The site serves diverse audiences with different needs. Content structure must accommodate all three without compromising any single audience's experience.
 
-- **Purpose Over Polish**: Every design decision serves a clear functional purpose
-- **Authentic Communication**: Design with honesty and directness
-- **Human-Centered Simplicity**: Complex problems deserve elegant solutions
-- **Bold Clarity**: Make confident design choices
-- **Inclusive by Default**: Design for everyone from the start
+### V. Performance & Accessibility Standards
+All pages MUST load in under 3 seconds on 3G connections. Images MUST be optimized and use appropriate formats (WebP, AVIF when supported). All interactive elements MUST meet WCAG AA minimum standards with AAA preferred. Keyboard navigation MUST be fully functional. Screen reader compatibility MUST be tested for all new components. Animation MUST respect `prefers-reduced-motion` media query.
 
-Design tokens (colors, typography, spacing) are defined in project data files and stylesheets. Changes to design tokens require Brand Guardian validation to ensure consistency across the platform.
+**Rationale**: Performance and accessibility are not optional features—they are fundamental requirements for inclusive, usable documentation that serves all audiences effectively.
 
 ## Development Workflow
 
-### Feature Development Process
-1. **Creative Director** → Strategic approach and user experience priorities
-2. **Art Director** → Visual execution and component aesthetics
-3. **Brand Guardian** → Compliance check against brand guidelines
-4. **UI Analyzer** → Automated testing and technical validation
-5. **Accessibility Champion** → WCAG validation and inclusive design review
+### Content Management
+- Content collections defined in `src/content/config.ts`
+- CloudCannon schemas in `.cloudcannon/schemas/`
+- Data files (colors, navigation, icons) in `data/` directory
+- All content changes tracked in Git (CloudCannon Git-backed CMS)
 
-### Quality Gates
-- All new components must pass Design Agent System workflow
-- All code changes must maintain brand compliance (validated by Brand Guardian)
-- All features must meet WCAG AA standards (validated by Accessibility Champion)
-- All design decisions must reference relevant personas
-- All documentation updates must be reflected immediately
+### Component Development
+- New components created via `npm run new-component` or manually with Bookshop structure
+- Component schemas required for CloudCannon visual editing
+- Components must include TypeScript types and JSDoc documentation
+- Component styles use Tailwind CSS with design token references
 
-### Component Creation
-New Bookshop components must:
-1. Use `npm run new-component` generator or follow established patterns
-2. Include proper schema files (`.yml`)
-3. Pass Design Agent System workflow before use
-4. Use design tokens (no hardcoded values)
-5. Be documented with usage guidelines
+### Design Agent Integration
+- Use `/design.workflow [feature-name]` for complete design validation
+- Brand Guardian validates brand compliance before commits
+- UI Analyzer performs automated testing with Playwright
+- Accessibility Champion ensures WCAG compliance
+
+## Quality Standards
+
+### Code Quality
+- TypeScript strict mode enabled
+- ESLint and Prettier configured and enforced
+- All components must pass Astro's built-in checks
+- No console.log statements in production code
+
+### Testing Requirements
+- Visual regression testing for component changes
+- Accessibility testing via automated tools and manual review
+- Cross-browser testing (Chrome, Firefox, Safari, Edge)
+- Mobile responsiveness validation (320px to 2560px widths)
+
+### Documentation Standards
+- All components must include usage examples
+- Design tokens must be documented in `data/` files
+- README must be kept current with setup and usage instructions
+- Design principles and agent documentation in `docs/design/`
 
 ## Governance
 
-This constitution supersedes all other development practices. Amendments require:
+This constitution supersedes all other development practices and guidelines. Amendments require:
 1. Documentation of the change rationale
-2. Update to this constitution file with version increment
-3. Propagation of changes to dependent templates and documentation
-4. Team review and approval
+2. Impact assessment on existing features and templates
+3. Update to all dependent templates and command files
+4. Version increment following semantic versioning (MAJOR.MINOR.PATCH)
+5. Update to Sync Impact Report in constitution header
 
-**Compliance**: All PRs and code reviews MUST verify compliance with these principles. The Design Agent System provides automated validation, but manual review is also required. Complexity must be justified—simpler solutions are preferred unless complexity serves a clear user need.
+All PRs and code reviews MUST verify compliance with constitution principles. Violations must be justified in Complexity Tracking section of implementation plans, or the design must be adjusted to comply.
 
-**Version Control**: Constitution changes follow semantic versioning:
-- **MAJOR**: Backward incompatible principle removals or redefinitions
-- **MINOR**: New principle/section added or materially expanded guidance
-- **PATCH**: Clarifications, wording improvements, typo fixes
+Complexity that violates principles requires explicit justification: what simpler alternative was rejected and why it was insufficient. Constitution principles are non-negotiable unless the constitution itself is amended.
 
-**Review Process**: Constitution compliance is checked during:
-- Feature specification review (spec.md)
-- Implementation plan review (plan.md)
-- Code review process
-- Design agent workflow execution
-
-For runtime development guidance, see `README.md` and `docs/design/AGENTS.md`.
-
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): Set when project officially adopts this constitution | **Last Amended**: 2025-01-27
+**Version**: 1.0.0 | **Ratified**: 2025-01-27 | **Last Amended**: 2025-01-27
